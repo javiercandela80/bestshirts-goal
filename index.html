@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bestshirts.goal</title>
-
   <style>
     * { box-sizing: border-box; }
 
@@ -45,7 +44,7 @@
       padding: 20px 12px;
     }
 
-    button {
+    button, .instagram-link {
       display: block;
       width: 100%;
       margin-top: 10px;
@@ -57,9 +56,19 @@
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
+      text-decoration: none;
     }
 
-    button:hover { background: #ddd; }
+    button:hover, .instagram-link:hover {
+      background: #ddd;
+    }
+
+    .instagram-link {
+      max-width: 230px;
+      margin: 15px auto 0;
+      background: #d62976;
+      color: white;
+    }
 
     .back {
       max-width: 200px;
@@ -76,11 +85,11 @@
     }
 
     .shirt-image {
-      display: block;
       width: 100%;
       max-width: 220px;
       height: 220px;
       object-fit: contain;
+      display: block;
       margin: 15px auto;
     }
 
@@ -101,12 +110,17 @@
   <header>
     <h1>Bestshirts.goal</h1>
     <p>Football shirts for every fan</p>
+    <a
+      class="instagram-link"
+      href="https://www.instagram.com/bestshirts_goal/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Síguenos en Instagram</a>
   </header>
 
   <main class="container">
     <section id="home">
       <h2>Choose your version</h2>
-
       <div class="grid">
         <div class="card">
           <h3>Fan Version</h3>
@@ -207,27 +221,29 @@
       ]
     };
 
+    const modelos = ["Local", "Visitante", "Tercera"];
+
     const camisetasLaLiga = {
-      "Real Madrid": ["Local", "Visitante", "Tercera"],
-      "FC Barcelona": ["Local", "Visitante", "Tercera"],
-      "Atlético de Madrid": ["Local", "Visitante", "Tercera"],
-      "Athletic Club": ["Local", "Visitante", "Tercera"],
-      "Real Sociedad": ["Local", "Visitante", "Tercera"],
-      "Valencia CF": ["Local", "Visitante", "Tercera"],
-      "Levante UD": ["Local", "Visitante", "Tercera"],
-      "Villarreal CF": ["Local", "Visitante", "Tercera"],
-      "Sevilla FC": ["Local", "Visitante", "Tercera"],
-      "Real Betis": ["Local", "Visitante", "Tercera"],
-      "Girona FC": ["Local", "Visitante", "Tercera"],
-      "Getafe CF": ["Local", "Visitante", "Tercera"],
-      "CA Osasuna": ["Local", "Visitante", "Tercera"],
-      "Rayo Vallecano": ["Local", "Visitante", "Tercera"],
-      "RCD Espanyol": ["Local", "Visitante", "Tercera"],
-      "Celta de Vigo": ["Local", "Visitante", "Tercera"],
-      "Deportivo Alavés": ["Local", "Visitante", "Tercera"],
-      "RCD Mallorca": ["Local", "Visitante", "Tercera"],
-      "Elche CF": ["Local", "Visitante", "Tercera"],
-      "Real Oviedo": ["Local", "Visitante", "Tercera"]
+      "Real Madrid": modelos,
+      "FC Barcelona": modelos,
+      "Atlético de Madrid": modelos,
+      "Athletic Club": modelos,
+      "Real Sociedad": modelos,
+      "Valencia CF": modelos,
+      "Levante UD": modelos,
+      "Villarreal CF": modelos,
+      "Sevilla FC": modelos,
+      "Real Betis": modelos,
+      "Girona FC": modelos,
+      "Getafe CF": modelos,
+      "CA Osasuna": modelos,
+      "Rayo Vallecano": modelos,
+      "RCD Espanyol": modelos,
+      "Celta de Vigo": modelos,
+      "Deportivo Alavés": modelos,
+      "RCD Mallorca": modelos,
+      "Elche CF": modelos,
+      "Real Oviedo": modelos
     };
 
     let selectedVersion = "";
@@ -275,7 +291,6 @@
 
     function chooseLeague(league) {
       selectedLeague = league;
-
       document.getElementById("leagueTitle").textContent = league;
 
       const list = document.getElementById("teamsList");
@@ -310,7 +325,7 @@
       const list = document.getElementById("shirtsList");
       list.innerHTML = "";
 
-      let models = ["Local", "Visitante", "Tercera"];
+      let models = modelos;
 
       if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
         models = camisetasLaLiga[team];
@@ -320,24 +335,24 @@
         const card = document.createElement("div");
         card.className = "card";
 
-        const isMadridFanHome =
-          selectedVersion === "Fan Version" &&
+        const isMadridHomeFan =
           selectedLeague === "LaLiga" &&
+          selectedVersion === "Fan Version" &&
           team === "Real Madrid" &&
           model === "Local";
 
-        if (isMadridFanHome) {
+        if (isMadridHomeFan) {
           const img = document.createElement("img");
-          img.className = "shirt-image";
           img.src = "./images/madrid%20fan%201era.avif";
-          img.alt = "Camiseta del Real Madrid - Fan Version";
+          img.alt = "Camiseta local del Real Madrid, versión Fan";
+          img.className = "shirt-image";
 
           img.onerror = function () {
-            this.style.display = "none";
+            this.remove();
             const fallback = document.createElement("div");
             fallback.className = "shirt";
             fallback.textContent = "👕";
-            this.parentElement.insertBefore(fallback, this);
+            card.prepend(fallback);
           };
 
           card.appendChild(img);
@@ -356,12 +371,9 @@
         price.textContent = selectedPrice + " €";
 
         const note = document.createElement("p");
-
-        if (isMadridFanHome) {
-          note.textContent = "Primera equipación · Fan Version";
-        } else {
-          note.textContent = "Foto pendiente de añadir";
-        }
+        note.textContent = isMadridHomeFan
+          ? "Primera equipación · Fan Version"
+          : "Foto pendiente de añadir";
 
         card.appendChild(title);
         card.appendChild(price);
