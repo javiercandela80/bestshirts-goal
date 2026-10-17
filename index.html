@@ -2,301 +2,329 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bestshirts.goal</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#090909;color:white;font-family:Arial,sans-serif}
-header{text-align:center;padding:28px 15px;border-bottom:1px solid #292929}
-.logo{font-size:29px;font-weight:900;letter-spacing:-1px}
-.logo span{color:#caff45}
-header p{color:#aaa;font-size:12px;letter-spacing:3px}
-main{max-width:1100px;margin:auto;padding:45px 20px}
-h1{text-align:center;font-size:clamp(30px,6vw,54px);text-transform:uppercase;margin-bottom:10px}
-.intro{text-align:center;color:#aaa;margin-bottom:38px}
-.versions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:#151515;border:1px solid #333;padding:30px 15px;text-align:center;cursor:pointer;color:white;transition:.2s}
-.card:hover{border-color:#caff45;transform:translateY(-4px)}
-.shirt{font-size:65px;margin:12px}
-.card h2{font-size:23px;margin:12px 0}
-.price{font-size:28px;font-weight:bold;color:#caff45}
-.small{font-size:12px;color:#aaa;margin-top:12px}
-button,select,input{font:inherit}
-.back{background:none;border:1px solid #555;color:white;padding:10px 15px;cursor:pointer;margin-bottom:25px}
-.back:hover{border-color:#caff45;color:#caff45}
-.hidden{display:none!important}
-h2.section-title{font-size:30px}
-.breadcrumb{color:#aaa;font-size:13px;margin-bottom:20px}
-.leagues,.teams{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.item{background:#151515;border:1px solid #303030;padding:20px;color:white;cursor:pointer;text-align:left}
-.item:hover{border-color:#caff45}
-.item strong{display:block;font-size:17px;margin-bottom:7px}
-.item span{color:#aaa;font-size:12px}
-.search{width:100%;padding:14px;background:#151515;border:1px solid #333;color:white;margin:20px 0}
-.results{margin-top:20px;color:#bbb;font-size:14px}
-footer{text-align:center;color:#777;border-top:1px solid #292929;padding:25px;font-size:12px}
-@media(max-width:650px){
- .versions{grid-template-columns:1fr}
- .card{padding:18px}
- .shirt{font-size:45px}
- .leagues,.teams{grid-template-columns:repeat(2,1fr)}
- main{padding:30px 15px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestshirts.goal</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101010;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      padding: 25px 15px;
+      background: #050505;
+      border-bottom: 1px solid #333;
+    }
+
+    h1 { margin: 0; font-size: 32px; }
+    h2 { margin-top: 25px; }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px 12px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover { background: #ddd; }
+
+    .back {
+      max-width: 200px;
+      margin: 20px auto;
+      background: #333;
+      color: white;
+    }
+
+    .hidden { display: none; }
+
+    .shirt {
+      font-size: 65px;
+      margin: 15px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    footer {
+      padding: 25px;
+      color: #aaa;
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="logo">BESTSHIRTS<span>.GOAL</span></div>
-  <p>FOOTBALL CULTURE</p>
-</header>
+  <header>
+    <h1>Bestshirts.goal</h1>
+    <p>Football shirts for every fan</p>
+  </header>
 
-<main>
-  <section id="home">
-    <h1>Elige tu versión</h1>
-    <p class="intro">Encuentra tu camiseta de fútbol favorita.</p>
-    <div class="versions">
-      <button class="card" onclick="chooseVersion('Fan Version',20)">
-        <div class="shirt">👕</div>
-        <h2>Fan Version</h2>
-        <div class="price">20 €</div>
-        <div class="small">Para los verdaderos fans</div>
-      </button>
-      <button class="card" onclick="chooseVersion('Player Version',25)">
-        <div class="shirt">👕</div>
-        <h2>Player Version</h2>
-        <div class="price">25 €</div>
-        <div class="small">Estilo jugador</div>
-      </button>
-      <button class="card" onclick="chooseVersion('Vintage',26)">
-        <div class="shirt">👕</div>
-        <h2>Vintage</h2>
-        <div class="price">26 €</div>
-        <div class="small">Clásicos del fútbol</div>
-      </button>
-    </div>
-  </section>
+  <main class="container">
 
-  <section id="leaguePage" class="hidden">
-    <button class="back" onclick="goHome()">← Volver</button>
-    <div class="breadcrumb" id="versionTrail"></div>
-    <h2 class="section-title">Elige una liga</h2>
-    <p class="intro">Selecciona la competición de tu equipo.</p>
-    <div class="leagues" id="leagueList"></div>
-  </section>
+    <section id="home">
+      <h2>Choose your version</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Fan Version</h3>
+          <p class="price">20 €</p>
+          <button onclick="chooseVersion('Fan Version', 20)">Explore</button>
+        </div>
 
-  <section id="teamPage" class="hidden">
-    <button class="back" onclick="goLeagues()">← Volver a las ligas</button>
-    <div class="breadcrumb" id="teamTrail"></div>
-    <h2 class="section-title" id="leagueTitle"></h2>
-    <p class="intro">Elige tu equipo favorito.</p>
-    <input id="search" class="search" placeholder="Buscar equipo..." oninput="filterTeams()">
-    <div class="teams" id="teamList"></div>
-    <p class="results" id="teamCount"></p>
-  </section>
+        <div class="card">
+          <h3>Player Version</h3>
+          <p class="price">25 €</p>
+          <button onclick="chooseVersion('Player Version', 25)">Explore</button>
+        </div>
 
-  <section id="shirtPage" class="hidden">
-    <button class="back" onclick="goTeams()">← Volver a los equipos</button>
-    <div class="breadcrumb" id="shirtTrail"></div>
-    <h2 class="section-title" id="shirtTitle"></h2>
-    <div class="card" style="cursor:default;max-width:450px;margin:20px auto">
-      <div class="shirt" style="font-size:90px">👕</div>
-      <h2 id="shirtName"></h2>
-      <div class="price" id="shirtPrice"></div>
-      <p class="small">Modelo de ejemplo. La foto y disponibilidad se añadirán próximamente.</p>
-      <a id="contactLink" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
-      style="display:inline-block;background:#caff45;color:#090909;padding:13px 20px;margin-top:15px;text-decoration:none;font-weight:bold">
-      CONSULTAR DISPONIBILIDAD
-      </a>
-    </div>
-  </section>
-</main>
+        <div class="card">
+          <h3>Vintage</h3>
+          <p class="price">26 €</p>
+          <button onclick="chooseVersion('Vintage', 26)">Explore</button>
+        </div>
+      </div>
+    </section>
 
-<footer>© 2026 BESTSHIRTS.GOAL · FOOTBALL CULTURE</footer>
+    <section id="leaguesPage" class="hidden">
+      <button class="back" onclick="showPage('home')">← Back</button>
+      <h2 id="versionTitle">Choose a league</h2>
+      <div id="leaguesList" class="grid"></div>
+    </section>
 
-<script>
+    <section id="teamsPage" class="hidden">
+      <button class="back" onclick="showPage('leaguesPage')">← Back to leagues</button>
+      <h2 id="leagueTitle">Choose a team</h2>
+      <div id="teamsList" class="grid"></div>
+    </section>
 
-const leagues = {
-  "LaLiga": [
-    "Real Madrid", "FC Barcelona", "Atlético de Madrid",
-    "Athletic Club", "Real Sociedad", "Valencia CF",
-    "Levante UD", "Villarreal CF", "Sevilla FC",
-    "Real Betis", "Girona FC", "Getafe CF",
-    "CA Osasuna", "Rayo Vallecano", "RCD Espanyol",
-    "Celta de Vigo", "Deportivo Alavés", "RCD Mallorca",
-    "Elche CF", "Real Oviedo"
-  ],
+    <section id="shirtsPage" class="hidden">
+      <button class="back" onclick="showPage('teamsPage')">← Back to teams</button>
+      <h2 id="teamTitle"></h2>
+      <p id="selectedVersion"></p>
+      <div id="shirtsList" class="grid"></div>
+    </section>
 
-  "Premier League": [
-    "Arsenal", "Liverpool", "Manchester City",
-    "Manchester United", "Chelsea", "Tottenham Hotspur",
-    "Newcastle United", "Aston Villa", "Everton",
-    "West Ham United", "Brighton", "Crystal Palace",
-    "Fulham", "Brentford", "Wolverhampton Wanderers",
-    "Nottingham Forest", "AFC Bournemouth", "Sunderland",
-    "Leeds United", "Burnley"
-  ],
+  </main>
 
-  "Liga Portugal": [
-    "SL Benfica", "FC Porto", "Sporting CP",
-    "SC Braga", "Vitória SC", "Boavista FC",
-    "Farense"
-  ],
+  <footer>
+    Bestshirts.goal · Football shirts catalogue
+  </footer>
 
-  "Ligue 1": [
-    "Paris Saint-Germain", "Olympique de Marseille",
-    "Olympique Lyonnais", "AS Monaco", "LOSC Lille",
-    "OGC Nice", "RC Lens", "Stade Rennais",
-    "RC Strasbourg", "Toulouse FC", "Montpellier",
-    "FC Nantes", "Stade de Reims", "AJ Auxerre",
-    "Le Havre AC", "Angers SCO", "FC Lorient",
-    "FC Metz"
-  ],
+  <script>
+    const leagues = {
+      "LaLiga": [
+        "Real Madrid", "FC Barcelona", "Atlético de Madrid",
+        "Athletic Club", "Real Sociedad", "Valencia CF",
+        "Levante UD", "Villarreal CF", "Sevilla FC",
+        "Real Betis", "Girona FC", "Getafe CF",
+        "CA Osasuna", "Rayo Vallecano", "RCD Espanyol",
+        "Celta de Vigo", "Deportivo Alavés", "RCD Mallorca",
+        "Elche CF", "Real Oviedo"
+      ],
 
-  "Serie A": [
-    "Inter", "AC Milan", "Juventus", "Napoli",
-    "AS Roma", "Lazio", "Atalanta", "Fiorentina",
-    "Bologna", "Torino", "Genoa", "Udinese",
-    "Cagliari", "Parma", "Lecce", "Como",
-    "Hellas Verona", "Sassuolo", "Pisa", "Cremonese"
-  ],
+      "Premier League": [
+        "Arsenal", "Liverpool", "Manchester City",
+        "Manchester United", "Chelsea", "Tottenham Hotspur",
+        "Newcastle United", "Aston Villa", "Everton",
+        "West Ham United", "Brighton", "Crystal Palace",
+        "Fulham", "Brentford", "Wolverhampton Wanderers",
+        "Nottingham Forest", "AFC Bournemouth", "Sunderland",
+        "Leeds United", "Burnley"
+      ],
 
-  "Bundesliga": [
-    "Bayern München", "Borussia Dortmund",
-    "Bayer Leverkusen", "RB Leipzig",
-    "Eintracht Frankfurt", "VfB Stuttgart",
-    "Werder Bremen", "Borussia Mönchengladbach",
-    "VfL Wolfsburg", "SC Freiburg", "TSG Hoffenheim",
-    "Mainz 05", "FC Augsburg", "Union Berlin",
-    "FC Köln", "Hamburger SV", "Heidenheim",
-    "St. Pauli"
-  ]
-};
- const camisetasLaLiga = {
-  "Real Madrid": ["real-madrid-local.jpg", "real-madrid-visitante.jpg", "real-madrid-tercera.jpg"],
-  "FC Barcelona": ["barcelona-local.jpg", "barcelona-visitante.jpg", "barcelona-tercera.jpg"],
-  "Atlético de Madrid": ["atletico-local.jpg", "atletico-visitante.jpg", "atletico-tercera.jpg"],
-  "Athletic Club": ["athletic-local.jpg", "athletic-visitante.jpg", "athletic-tercera.jpg"],
-  "Real Sociedad": ["real-sociedad-local.jpg", "real-sociedad-visitante.jpg", "real-sociedad-tercera.jpg"],
-  "Valencia CF": ["valencia-local.jpg", "valencia-visitante.jpg", "valencia-tercera.jpg"],
-  "Levante UD": ["levante-local.jpg", "levante-visitante.jpg", "levante-tercera.jpg"],
-  "Villarreal CF": ["villarreal-local.jpg", "villarreal-visitante.jpg", "villarreal-tercera.jpg"],
-  "Sevilla FC": ["sevilla-local.jpg", "sevilla-visitante.jpg", "sevilla-tercera.jpg"],
-  "Real Betis": ["betis-local.jpg", "betis-visitante.jpg", "betis-tercera.jpg"],
-  "Girona FC": ["girona-local.jpg", "girona-visitante.jpg", "girona-tercera.jpg"],
-  "Getafe CF": ["getafe-local.jpg", "getafe-visitante.jpg", "getafe-tercera.jpg"],
-  "CA Osasuna": ["osasuna-local.jpg", "osasuna-visitante.jpg", "osasuna-tercera.jpg"],
-  "Rayo Vallecano": ["rayo-local.jpg", "rayo-visitante.jpg", "rayo-tercera.jpg"],
-  "RCD Espanyol": ["espanyol-local.jpg", "espanyol-visitante.jpg", "espanyol-tercera.jpg"],
-  "Celta de Vigo": ["celta-local.jpg", "celta-visitante.jpg", "celta-tercera.jpg"],
-  "Deportivo Alavés": ["alaves-local.jpg", "alaves-visitante.jpg", "alaves-tercera.jpg"],
-  "RCD Mallorca": ["mallorca-local.jpg", "mallorca-visitante.jpg", "mallorca-tercera.jpg"],
-  "Elche CF": ["elche-local.jpg", "elche-visitante.jpg", "elche-tercera.jpg"],
-  "Real Oviedo": ["oviedo-local.jpg", "oviedo-visitante.jpg", "oviedo-tercera.jpg"]
-};
+      "Liga Portugal": [
+        "SL Benfica", "FC Porto", "Sporting CP",
+        "SC Braga", "Vitória SC", "Boavista FC", "Famalicão"
+      ],
 
-let selectedPrice = 0;
-let selectedLeague = "";
-let selectedTeam = "";
+      "Ligue 1": [
+        "Paris Saint-Germain", "Olympique de Marseille",
+        "Olympique Lyonnais", "AS Monaco", "LOSC Lille",
+        "OGC Nice", "RC Lens", "Stade Rennais",
+        "RC Strasbourg", "Toulouse FC", "Montpellier",
+        "FC Nantes", "Stade de Reims", "AJ Auxerre",
+        "Le Havre AC", "Angers SCO", "FC Lorient", "FC Metz"
+      ],
 
-function hidePages(){
- ["home","leaguePage","teamPage","shirtPage"].forEach(id=>
-  document.getElementById(id).classList.add("hidden")
- );
-}
+      "Serie A": [
+        "Inter", "AC Milan", "Juventus", "Napoli",
+        "AS Roma", "Lazio", "Atalanta", "Fiorentina",
+        "Bologna", "Torino", "Genoa", "Udinese",
+        "Cagliari", "Parma", "Lecce", "Como",
+        "Hellas Verona", "Sassuolo", "Pisa", "Cremonese"
+      ],
 
-function chooseVersion(version,price){
- selectedVersion=version;
- selectedPrice=price;
- hidePages();
- document.getElementById("leaguePage").classList.remove("hidden");
- document.getElementById("versionTrail").textContent=version+" · "+price+" €";
- renderLeagues();
- window.scrollTo(0,0);
-}
+      "Bundesliga": [
+        "Bayern München", "Borussia Dortmund",
+        "Bayer Leverkusen", "RB Leipzig",
+        "Eintracht Frankfurt", "VfB Stuttgart",
+        "Werder Bremen", "Borussia Mönchengladbach",
+        "VfL Wolfsburg", "SC Freiburg", "TSG Hoffenheim",
+        "Mainz 05", "FC Augsburg", "Union Berlin",
+        "FC Köln", "Hamburger SV", "Heidenheim", "St. Pauli"
+      ]
+    };
 
-function renderLeagues(){
- const list=document.getElementById("leagueList");
- list.innerHTML="";
- Object.keys(leagues).forEach(league=>{
-  const button=document.createElement("button");
-  button.className="item";
-  const strong=document.createElement("strong");
-  strong.textContent=league;
-  const span=document.createElement("span");
-  span.textContent=leagues[league].length+" equipos de ejemplo";
-  button.append(strong,span);
-  button.onclick=()=>chooseLeague(league);
-  list.appendChild(button);
- });
-}
+    const camisetasLaLiga = {
+      "Real Madrid": ["Local", "Visitante", "Tercera"],
+      "FC Barcelona": ["Local", "Visitante", "Tercera"],
+      "Atlético de Madrid": ["Local", "Visitante", "Tercera"],
+      "Athletic Club": ["Local", "Visitante", "Tercera"],
+      "Real Sociedad": ["Local", "Visitante", "Tercera"],
+      "Valencia CF": ["Local", "Visitante", "Tercera"],
+      "Levante UD": ["Local", "Visitante", "Tercera"],
+      "Villarreal CF": ["Local", "Visitante", "Tercera"],
+      "Sevilla FC": ["Local", "Visitante", "Tercera"],
+      "Real Betis": ["Local", "Visitante", "Tercera"],
+      "Girona FC": ["Local", "Visitante", "Tercera"],
+      "Getafe CF": ["Local", "Visitante", "Tercera"],
+      "CA Osasuna": ["Local", "Visitante", "Tercera"],
+      "Rayo Vallecano": ["Local", "Visitante", "Tercera"],
+      "RCD Espanyol": ["Local", "Visitante", "Tercera"],
+      "Celta de Vigo": ["Local", "Visitante", "Tercera"],
+      "Deportivo Alavés": ["Local", "Visitante", "Tercera"],
+      "RCD Mallorca": ["Local", "Visitante", "Tercera"],
+      "Elche CF": ["Local", "Visitante", "Tercera"],
+      "Real Oviedo": ["Local", "Visitante", "Tercera"]
+    };
 
-function chooseLeague(league){
- selectedLeague=league;
- hidePages();
- document.getElementById("teamPage").classList.remove("hidden");
- document.getElementById("leagueTitle").textContent=league;
- document.getElementById("teamTrail").textContent=
-  selectedVersion+" · "+league;
- document.getElementById("search").value="";
- renderTeams(leagues[league]);
- window.scrollTo(0,0);
-}
+    let selectedVersion = "";
+    let selectedPrice = 0;
+    let selectedLeague = "";
+    let selectedTeam = "";
 
-function renderTeams(teams){
- const list=document.getElementById("teamList");
- list.innerHTML="";
- teams.forEach(team=>{
-  const button=document.createElement("button");
-  button.className="item";
-  const strong=document.createElement("strong");
-  strong.textContent=team;
-  const span=document.createElement("span");
-  span.textContent="Ver camiseta · "+selectedPrice+" €";
-  button.append(strong,span);
-  button.onclick=()=>chooseTeam(team);
-  list.appendChild(button);
- });
- document.getElementById("teamCount").textContent=
-  teams.length+" equipos encontrados";
-}
+    function showPage(pageId) {
+      document.querySelectorAll("main section").forEach(section => {
+        section.classList.add("hidden");
+      });
+      document.getElementById(pageId).classList.remove("hidden");
+    }
 
-function filterTeams(){
- const term=document.getElementById("search").value.toLowerCase();
- const filtered=leagues[selectedLeague].filter(team=>
-  team.toLowerCase().includes(term)
- );
- renderTeams(filtered);
-}
+    function chooseVersion(version, price) {
+      selectedVersion = version;
+      selectedPrice = price;
 
-function chooseTeam(team){
- selectedTeam=team;
- hidePages();
- document.getElementById("shirtPage").classList.remove("hidden");
- document.getElementById("shirtTrail").textContent=
-  selectedVersion+" · "+selectedLeague+" · "+team;
- document.getElementById("shirtTitle").textContent=team;
- document.getElementById("shirtName").textContent=
-  team+" — "+selectedVersion;
- document.getElementById("shirtPrice").textContent=selectedPrice+" €";
- window.scrollTo(0,0);
-}
+      document.getElementById("versionTitle").textContent =
+        version + " — Choose a league";
 
-function goHome(){
- hidePages();
- document.getElementById("home").classList.remove("hidden");
- window.scrollTo(0,0);
-}
-function goLeagues(){
- hidePages();
- document.getElementById("leaguePage").classList.remove("hidden");
- window.scrollTo(0,0);
-}
-function goTeams(){
- hidePages();
- document.getElementById("teamPage").classList.remove("hidden");
- window.scrollTo(0,0);
-}
-</script>
+      const list = document.getElementById("leaguesList");
+      list.innerHTML = "";
+
+      Object.keys(leagues).forEach(league => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h3>${league}</h3>`;
+
+        const button = document.createElement("button");
+        button.textContent = "See teams";
+        button.onclick = () => chooseLeague(league);
+
+        card.appendChild(button);
+        list.appendChild(card);
+      });
+
+      showPage("leaguesPage");
+    }
+
+    function chooseLeague(league) {
+      selectedLeague = league;
+      document.getElementById("leagueTitle").textContent = league;
+
+      const list = document.getElementById("teamsList");
+      list.innerHTML = "";
+
+      leagues[league].forEach(team => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h3>${team}</h3>`;
+
+        const button = document.createElement("button");
+        button.textContent = "See shirts";
+        button.onclick = () => chooseTeam(team);
+
+        card.appendChild(button);
+        list.appendChild(card);
+      });
+
+      showPage("teamsPage");
+    }
+
+    function chooseTeam(team) {
+      selectedTeam = team;
+
+      document.getElementById("teamTitle").textContent = team;
+      document.getElementById("selectedVersion").textContent =
+        selectedVersion + " · " + selectedPrice + " €";
+
+      const list = document.getElementById("shirtsList");
+      list.innerHTML = "";
+
+      let models = ["Local", "Visitante", "Tercera"];
+
+      if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
+        models = camisetasLaLiga[team];
+      }
+
+      models.forEach(model => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const shirt = document.createElement("div");
+        shirt.className = "shirt";
+        shirt.textContent = "👕";
+
+        const title = document.createElement("h3");
+        title.textContent = team + " — " + model;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent = selectedPrice + " €";
+
+        const note = document.createElement("p");
+        note.textContent = "Foto pendiente de añadir";
+
+        card.appendChild(shirt);
+        card.appendChild(title);
+        card.appendChild(price);
+        card.appendChild(note);
+        list.appendChild(card);
+      });
+
+      showPage("shirtsPage");
+    }
+  </script>
 </body>
 </html>
