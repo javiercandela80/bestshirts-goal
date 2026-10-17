@@ -304,7 +304,15 @@
 
         const shirt = document.createElement("div");
         shirt.className = "shirt";
-        shirt.textContent = "👕";
+        const img = document.createElement("img");
+img.src = "images/barcelona-local.jpg";
+img.alt = "Camiseta del Barcelona";
+img.style.width = "100%";
+img.style.maxWidth = "220px";
+img.style.height = "220px";
+img.style.objectFit = "contain";
+img.style.display = "block";
+img.style.margin = "15px auto";
 
         const title = document.createElement("h3");
         title.textContent = team + " — " + model;
