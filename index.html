@@ -283,58 +283,78 @@
     }
 
     function chooseTeam(team) {
-      selectedTeam = team;
+      
+function chooseTeam(team) {
+  selectedTeam = team;
 
-      document.getElementById("teamTitle").textContent = team;
-      document.getElementById("selectedVersion").textContent =
-        selectedVersion + " · " + selectedPrice + " €";
+  document.getElementById("teamTitle").textContent = team;
+  document.getElementById("selectedVersion").textContent =
+    selectedVersion + " · " + selectedPrice + " €";
 
-      const list = document.getElementById("shirtsList");
-      list.innerHTML = "";
+  const list = document.getElementById("shirtsList");
+  list.innerHTML = "";
 
-      let models = ["Local", "Visitante", "Tercera"];
+  let models = ["Local", "Visitante", "Tercera"];
 
-      if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
-        models = camisetasLaLiga[team];
-      }
+  if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
+    models = camisetasLaLiga[team];
+  }
 
-      models.forEach(model => {
-        const card = document.createElement("div");
-        card.className = "card";
+  models.forEach(model => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-        const shirt = document.createElement("div");
-        shirt.className = "shirt";
-        const img = document.createElement("img");
-img.src = images/madrid fan 1era.avif";
-img.alt = "Camiseta del Real Madrid";
-img.style.width = "100%";
-img.style.maxWidth = "220px";
-img.style.height = "220px";
-img.style.objectFit = "contain";
-img.style.display = "block";
-img.style.margin = "15px auto";
+    if (
+      selectedVersion === "Fan Version" &&
+      team === "Real Madrid" &&
+      model === "Local"
+    ) {
+      const img = document.createElement("img");
+      img.src = "images/madrid%20fan%201era.avif";
+      img.alt = "Camiseta del Real Madrid";
+      img.style.width = "100%";
+      img.style.maxWidth = "220px";
+      img.style.height = "220px";
+      img.style.objectFit = "contain";
+      img.style.display = "block";
+      img.style.margin = "15px auto";
 
-        const title = document.createElement("h3");
-        title.textContent = team + " — " + model;
+      card.appendChild(img);
+    } else {
+      const shirt = document.createElement("div");
+      shirt.className = "shirt";
+      shirt.textContent = "👕";
 
-        const price = document.createElement("p");
-        price.className = "price";
-        price.textContent = selectedPrice + " €";
-
-        const note = document.createElement("p");
-        note.textContent = "Foto pendiente de añadir";
-if (team !== "Real Madrid") {
-  img.style.display = "none";
-}
-        card.appendChild(img);
-        card.appendChild(title);
-        card.appendChild(price);
-        card.appendChild(note);
-        list.appendChild(card);
-      });
-
-      showPage("shirtsPage");
+      card.appendChild(shirt);
     }
+
+    const title = document.createElement("h3");
+    title.textContent = team + " — " + model;
+
+    const price = document.createElement("p");
+    price.className = "price";
+    price.textContent = selectedPrice + " €";
+
+    const note = document.createElement("p");
+
+    if (
+      selectedVersion === "Fan Version" &&
+      team === "Real Madrid" &&
+      model === "Local"
+    ) {
+      note.textContent = "Primera equipación · Fan Version";
+    } else {
+      note.textContent = "Foto pendiente de añadir";
+    }
+
+    card.appendChild(title);
+    card.appendChild(price);
+    card.appendChild(note);
+    list.appendChild(card);
+  });
+
+  showPage("shirtsPage");
+}
   </script>
 </body>
 </html>
