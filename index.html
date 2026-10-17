@@ -323,7 +323,9 @@ img.style.margin = "15px auto";
 
         const note = document.createElement("p");
         note.textContent = "Foto pendiente de añadir";
-
+if (team !== "Real Madrid") {
+  img.style.display = "none";
+}
         card.appendChild(img);
         card.appendChild(title);
         card.appendChild(price);
