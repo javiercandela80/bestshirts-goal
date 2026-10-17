@@ -115,36 +115,68 @@ footer{text-align:center;color:#777;border-top:1px solid #292929;padding:25px;fo
 <footer>© 2026 BESTSHIRTS.GOAL · FOOTBALL CULTURE</footer>
 
 <script>
+
 const leagues = {
- "LaLiga": [
-  "Real Madrid","FC Barcelona","Atlético de Madrid","Valencia CF",
-  "Levante UD","Sevilla FC","Real Betis","Athletic Club",
-  "Real Sociedad","Villarreal CF","Girona FC","Getafe CF"
- ],
- "Premier League": [
-  "Arsenal","Liverpool","Manchester City","Manchester United",
-  "Chelsea","Tottenham Hotspur","Newcastle United","Aston Villa",
-  "Everton","West Ham United"
- ],
- "Liga Portugal": [
-  "SL Benfica","FC Porto","Sporting CP","SC Braga",
-  "Vitória SC","Boavista FC","Famalicão","Rio Ave FC"
- ],
- "Ligue 1": [
-  "Paris Saint-Germain","Olympique de Marseille","Olympique Lyonnais",
-  "AS Monaco","LOSC Lille","OGC Nice","RC Lens","Stade Rennais"
- ],
- "Serie A": [
-  "Inter de Milán","AC Milan","Juventus","Napoli",
-  "AS Roma","Lazio","Atalanta","Fiorentina"
- ],
- "Bundesliga": [
-  "Bayern Múnich","Borussia Dortmund","Bayer Leverkusen",
-  "RB Leipzig","Eintracht Frankfurt","VfB Stuttgart","Werder Bremen"
- ]
+  "LaLiga": [
+    "Real Madrid", "FC Barcelona", "Atlético de Madrid",
+    "Athletic Club", "Real Sociedad", "Valencia CF",
+    "Levante UD", "Villarreal CF", "Sevilla FC",
+    "Real Betis", "Girona FC", "Getafe CF",
+    "CA Osasuna", "Rayo Vallecano", "RCD Espanyol",
+    "Celta de Vigo", "Deportivo Alavés", "RCD Mallorca",
+    "Elche CF", "Real Oviedo"
+  ],
+
+  "Premier League": [
+    "Arsenal", "Liverpool", "Manchester City",
+    "Manchester United", "Chelsea", "Tottenham Hotspur",
+    "Newcastle United", "Aston Villa", "Everton",
+    "West Ham United", "Brighton", "Crystal Palace",
+    "Fulham", "Brentford", "Wolverhampton Wanderers",
+    "Nottingham Forest", "AFC Bournemouth", "Sunderland",
+    "Leeds United", "Burnley"
+  ],
+
+  "Liga Portugal": [
+    "SL Benfica", "FC Porto", "Sporting CP",
+    "SC Braga", "Vitória SC", "Boavista FC",
+    "Famalicão", "Rio Ave FC", "Moreirense",
+    "Gil Vicente", "Estoril Praia", "Casa Pia",
+    "Arouca", "Nacional", "Santa Clara",
+    "Farense", "AVS Futebol SAD", "Tondela"
+  ],
+
+  "Ligue 1": [
+    "Paris Saint-Germain", "Olympique de Marseille",
+    "Olympique Lyonnais", "AS Monaco", "LOSC Lille",
+    "OGC Nice", "RC Lens", "Stade Rennais",
+    "RC Strasbourg", "Toulouse FC", "Montpellier",
+    "FC Nantes", "Stade de Reims", "AJ Auxerre",
+    "Le Havre AC", "Angers SCO", "FC Lorient",
+    "FC Metz"
+  ],
+
+  "Serie A": [
+    "Inter", "AC Milan", "Juventus", "Napoli",
+    "AS Roma", "Lazio", "Atalanta", "Fiorentina",
+    "Bologna", "Torino", "Genoa", "Udinese",
+    "Cagliari", "Parma", "Lecce", "Como",
+    "Hellas Verona", "Sassuolo", "Pisa", "Cremonese"
+  ],
+
+  "Bundesliga": [
+    "Bayern München", "Borussia Dortmund",
+    "Bayer Leverkusen", "RB Leipzig",
+    "Eintracht Frankfurt", "VfB Stuttgart",
+    "Werder Bremen", "Borussia Mönchengladbach",
+    "VfL Wolfsburg", "SC Freiburg", "TSG Hoffenheim",
+    "Mainz 05", "FC Augsburg", "Union Berlin",
+    "FC Köln", "Hamburger SV", "Heidenheim",
+    "St. Pauli"
+  ]
 };
 
-let selectedVersion = "";
+
 let selectedPrice = 0;
 let selectedLeague = "";
 let selectedTeam = "";
