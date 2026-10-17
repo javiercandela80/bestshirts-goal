@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bestshirts.goal</title>
+
   <style>
     * { box-sizing: border-box; }
 
@@ -43,7 +44,7 @@
       padding: 20px 12px;
     }
 
-    button, .instagram-link {
+    button, .instagram-link, .whatsapp-link {
       display: block;
       width: 100%;
       margin-top: 10px;
@@ -58,13 +59,38 @@
       text-decoration: none;
     }
 
-    button:hover, .instagram-link:hover { background: #ddd; }
+    button:hover, .instagram-link:hover, .whatsapp-link:hover {
+      opacity: 0.85;
+    }
 
     .instagram-link {
       max-width: 230px;
-      margin: 15px auto 0;
+      margin: 15px auto 5px;
       background: #d62976;
       color: white;
+    }
+
+    .contact-note {
+      color: #c5c5c5;
+      font-size: 12px;
+      line-height: 1.6;
+      margin: 8px auto 12px;
+      max-width: 350px;
+    }
+
+    .phone {
+      color: white;
+      font-weight: bold;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .whatsapp-link {
+      max-width: 230px;
+      margin: 8px auto;
+      background: #25D366;
+      color: #071b0d;
+      font-size: 13px;
     }
 
     .back {
@@ -75,7 +101,11 @@
     }
 
     .hidden { display: none; }
-    .shirt { font-size: 65px; margin: 15px; }
+
+    .shirt {
+      font-size: 65px;
+      margin: 15px;
+    }
 
     .shirt-image {
       width: 100%;
@@ -97,7 +127,10 @@
       border-color: #d62976;
     }
 
-    .price { font-size: 22px; font-weight: bold; }
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+    }
 
     footer {
       padding: 25px;
@@ -111,27 +144,52 @@
   <header>
     <h1>Bestshirts.goal</h1>
     <p>Football shirts for every fan</p>
+
     <a class="instagram-link"
        href="https://www.instagram.com/bestshirts_goal/"
-       target="_blank" rel="noopener noreferrer">
+       target="_blank"
+       rel="noopener noreferrer">
       Síguenos en Instagram
     </a>
+
+    <p class="contact-note">
+      Cualquier duda o para ver más fotos, escríbenos por DM
+      o al
+      <a class="phone"
+         href="https://wa.me/34613296293"
+         target="_blank"
+         rel="noopener noreferrer">
+        +34 613 296 293
+      </a>.
+      <br>
+      Pulsa el número para contactar por WhatsApp o el botón
+      de abajo para copiarlo.
+    </p>
+
+    <button class="whatsapp-link" onclick="copyPhone()">
+      📋 Copiar número de teléfono
+    </button>
+
+    <p id="copyMessage" class="contact-note" aria-live="polite"></p>
   </header>
 
   <main class="container">
     <section id="home">
       <h2>Choose your version</h2>
+
       <div class="grid">
         <div class="card">
           <h3>Fan Version</h3>
           <p class="price">20 €</p>
           <button onclick="chooseVersion('Fan Version', 20)">Explore</button>
         </div>
+
         <div class="card">
           <h3>Player Version</h3>
           <p class="price">25 €</p>
           <button onclick="chooseVersion('Player Version', 25)">Explore</button>
         </div>
+
         <div class="card">
           <h3>Vintage</h3>
           <p class="price">26 €</p>
@@ -163,6 +221,9 @@
   <footer>Bestshirts.goal · Football shirts catalogue</footer>
 
   <script>
+    const INSTAGRAM_URL = "https://www.instagram.com/bestshirts_goal/";
+    const PHONE_NUMBER = "+34 613 296 293";
+
     const leagues = {
       "LaLiga": [
         "Real Madrid", "FC Barcelona", "Atlético de Madrid",
@@ -173,6 +234,7 @@
         "Celta de Vigo", "Deportivo Alavés", "RCD Mallorca",
         "Elche CF", "Real Oviedo"
       ],
+
       "Premier League": [
         "Arsenal", "Liverpool", "Manchester City",
         "Manchester United", "Chelsea", "Tottenham Hotspur",
@@ -182,10 +244,12 @@
         "Nottingham Forest", "AFC Bournemouth", "Sunderland",
         "Leeds United", "Burnley"
       ],
+
       "Liga Portugal": [
         "SL Benfica", "FC Porto", "Sporting CP",
         "SC Braga", "Vitória SC", "Boavista FC", "Famalicão"
       ],
+
       "Ligue 1": [
         "Paris Saint-Germain", "Olympique de Marseille",
         "Olympique Lyonnais", "AS Monaco", "LOSC Lille",
@@ -194,6 +258,7 @@
         "FC Nantes", "Stade de Reims", "AJ Auxerre",
         "Le Havre AC", "Angers SCO", "FC Lorient", "FC Metz"
       ],
+
       "Serie A": [
         "Inter", "AC Milan", "Juventus", "Napoli",
         "AS Roma", "Lazio", "Atalanta", "Fiorentina",
@@ -201,6 +266,7 @@
         "Cagliari", "Parma", "Lecce", "Como",
         "Hellas Verona", "Sassuolo", "Pisa", "Cremonese"
       ],
+
       "Bundesliga": [
         "Bayern München", "Borussia Dortmund",
         "Bayer Leverkusen", "RB Leipzig",
@@ -213,14 +279,27 @@
     };
 
     const modelos = ["Local", "Visitante", "Tercera"];
+
     let selectedVersion = "";
     let selectedPrice = 0;
     let selectedLeague = "";
+
+    async function copyPhone() {
+      const message = document.getElementById("copyMessage");
+
+      try {
+        await navigator.clipboard.writeText(PHONE_NUMBER);
+        message.textContent = "¡Número copiado! Ya puedes pegarlo.";
+      } catch (error) {
+        message.textContent = "Selecciona y copia este número: " + PHONE_NUMBER;
+      }
+    }
 
     function showPage(pageId) {
       document.querySelectorAll("main section").forEach(section => {
         section.classList.add("hidden");
       });
+
       document.getElementById(pageId).classList.remove("hidden");
       window.scrollTo(0, 0);
     }
@@ -228,6 +307,7 @@
     function chooseVersion(version, price) {
       selectedVersion = version;
       selectedPrice = price;
+
       document.getElementById("versionTitle").textContent =
         version + " — Choose a league";
 
@@ -286,14 +366,21 @@
       list.innerHTML = "";
 
       modelos.forEach(model => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const link = document.createElement("a");
+        link.className = "shirt-card-link";
+        link.href = INSTAGRAM_URL;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", "Abrir Instagram de Bestshirts.goal");
+
         const isMadridHomeFan =
           selectedLeague === "LaLiga" &&
           selectedVersion === "Fan Version" &&
           team === "Real Madrid" &&
           model === "Local";
-
-        const card = document.createElement("div");
-        card.className = "card";
 
         const title = document.createElement("h3");
         title.textContent = team + " — " + model;
@@ -303,46 +390,29 @@
         price.textContent = selectedPrice + " €";
 
         const note = document.createElement("p");
-        note.textContent = isMadridHomeFan
-          ? "Primera equipación · Fan Version"
-          : "Foto pendiente de añadir";
 
         if (isMadridHomeFan) {
-          const link = document.createElement("a");
-          link.className = "shirt-card-link";
-          link.href = "https://www.instagram.com/bestshirts_goal/";
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.setAttribute("aria-label", "Abrir Instagram de Bestshirts.goal");
-
           const img = document.createElement("img");
           img.src = "./images/madrid%20fan%201era.avif";
-          img.alt = "Camiseta local del Real Madrid, versión Fan";
+          img.alt = "Camiseta local del Real Madrid";
           img.className = "shirt-image";
 
-          img.onerror = function () {
-            this.onerror = null;
-            this.src = "";
-            this.alt = "Foto no disponible";
+          img.onerror = function() {
             this.style.display = "none";
-            const fallback = document.createElement("div");
-            fallback.className = "shirt";
-            fallback.textContent = "👕";
-            link.prepend(fallback);
           };
 
           link.appendChild(img);
-          link.appendChild(title);
-          link.appendChild(price);
-          link.appendChild(note);
-          card.appendChild(link);
+          note.textContent = "Primera equipación · Fan Version";
         } else {
           const shirt = document.createElement("div");
           shirt.className = "shirt";
           shirt.textContent = "👕";
-          card.append(shirt, title, price, note);
+          link.appendChild(shirt);
+          note.textContent = "Foto pendiente de añadir";
         }
 
+        link.append(title, price, note);
+        card.appendChild(link);
         list.appendChild(card);
       });
 
