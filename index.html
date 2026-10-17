@@ -23,7 +23,6 @@
     }
 
     h1 { margin: 0; font-size: 32px; }
-    h2 { margin-top: 25px; }
 
     .container {
       max-width: 1000px;
@@ -59,9 +58,7 @@
       text-decoration: none;
     }
 
-    button:hover, .instagram-link:hover {
-      background: #ddd;
-    }
+    button:hover, .instagram-link:hover { background: #ddd; }
 
     .instagram-link {
       max-width: 230px;
@@ -78,11 +75,7 @@
     }
 
     .hidden { display: none; }
-
-    .shirt {
-      font-size: 65px;
-      margin: 15px;
-    }
+    .shirt { font-size: 65px; margin: 15px; }
 
     .shirt-image {
       width: 100%;
@@ -93,10 +86,18 @@
       margin: 15px auto;
     }
 
-    .price {
-      font-size: 22px;
-      font-weight: bold;
+    .shirt-card-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 10px;
     }
+
+    .shirt-card-link:hover .card {
+      border-color: #d62976;
+    }
+
+    .price { font-size: 22px; font-weight: bold; }
 
     footer {
       padding: 25px;
@@ -110,12 +111,11 @@
   <header>
     <h1>Bestshirts.goal</h1>
     <p>Football shirts for every fan</p>
-    <a
-      class="instagram-link"
-      href="https://www.instagram.com/bestshirts_goal/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Síguenos en Instagram</a>
+    <a class="instagram-link"
+       href="https://www.instagram.com/bestshirts_goal/"
+       target="_blank" rel="noopener noreferrer">
+      Síguenos en Instagram
+    </a>
   </header>
 
   <main class="container">
@@ -127,13 +127,11 @@
           <p class="price">20 €</p>
           <button onclick="chooseVersion('Fan Version', 20)">Explore</button>
         </div>
-
         <div class="card">
           <h3>Player Version</h3>
           <p class="price">25 €</p>
           <button onclick="chooseVersion('Player Version', 25)">Explore</button>
         </div>
-
         <div class="card">
           <h3>Vintage</h3>
           <p class="price">26 €</p>
@@ -162,9 +160,7 @@
     </section>
   </main>
 
-  <footer>
-    Bestshirts.goal · Football shirts catalogue
-  </footer>
+  <footer>Bestshirts.goal · Football shirts catalogue</footer>
 
   <script>
     const leagues = {
@@ -177,7 +173,6 @@
         "Celta de Vigo", "Deportivo Alavés", "RCD Mallorca",
         "Elche CF", "Real Oviedo"
       ],
-
       "Premier League": [
         "Arsenal", "Liverpool", "Manchester City",
         "Manchester United", "Chelsea", "Tottenham Hotspur",
@@ -187,12 +182,10 @@
         "Nottingham Forest", "AFC Bournemouth", "Sunderland",
         "Leeds United", "Burnley"
       ],
-
       "Liga Portugal": [
         "SL Benfica", "FC Porto", "Sporting CP",
         "SC Braga", "Vitória SC", "Boavista FC", "Famalicão"
       ],
-
       "Ligue 1": [
         "Paris Saint-Germain", "Olympique de Marseille",
         "Olympique Lyonnais", "AS Monaco", "LOSC Lille",
@@ -201,7 +194,6 @@
         "FC Nantes", "Stade de Reims", "AJ Auxerre",
         "Le Havre AC", "Angers SCO", "FC Lorient", "FC Metz"
       ],
-
       "Serie A": [
         "Inter", "AC Milan", "Juventus", "Napoli",
         "AS Roma", "Lazio", "Atalanta", "Fiorentina",
@@ -209,7 +201,6 @@
         "Cagliari", "Parma", "Lecce", "Como",
         "Hellas Verona", "Sassuolo", "Pisa", "Cremonese"
       ],
-
       "Bundesliga": [
         "Bayern München", "Borussia Dortmund",
         "Bayer Leverkusen", "RB Leipzig",
@@ -222,40 +213,14 @@
     };
 
     const modelos = ["Local", "Visitante", "Tercera"];
-
-    const camisetasLaLiga = {
-      "Real Madrid": modelos,
-      "FC Barcelona": modelos,
-      "Atlético de Madrid": modelos,
-      "Athletic Club": modelos,
-      "Real Sociedad": modelos,
-      "Valencia CF": modelos,
-      "Levante UD": modelos,
-      "Villarreal CF": modelos,
-      "Sevilla FC": modelos,
-      "Real Betis": modelos,
-      "Girona FC": modelos,
-      "Getafe CF": modelos,
-      "CA Osasuna": modelos,
-      "Rayo Vallecano": modelos,
-      "RCD Espanyol": modelos,
-      "Celta de Vigo": modelos,
-      "Deportivo Alavés": modelos,
-      "RCD Mallorca": modelos,
-      "Elche CF": modelos,
-      "Real Oviedo": modelos
-    };
-
     let selectedVersion = "";
     let selectedPrice = 0;
     let selectedLeague = "";
-    let selectedTeam = "";
 
     function showPage(pageId) {
       document.querySelectorAll("main section").forEach(section => {
         section.classList.add("hidden");
       });
-
       document.getElementById(pageId).classList.remove("hidden");
       window.scrollTo(0, 0);
     }
@@ -263,7 +228,6 @@
     function chooseVersion(version, price) {
       selectedVersion = version;
       selectedPrice = price;
-
       document.getElementById("versionTitle").textContent =
         version + " — Choose a league";
 
@@ -281,8 +245,7 @@
         button.textContent = "See teams";
         button.onclick = () => chooseLeague(league);
 
-        card.appendChild(title);
-        card.appendChild(button);
+        card.append(title, button);
         list.appendChild(card);
       });
 
@@ -307,8 +270,7 @@
         button.textContent = "See shirts";
         button.onclick = () => chooseTeam(team);
 
-        card.appendChild(title);
-        card.appendChild(button);
+        card.append(title, button);
         list.appendChild(card);
       });
 
@@ -316,8 +278,6 @@
     }
 
     function chooseTeam(team) {
-      selectedTeam = team;
-
       document.getElementById("teamTitle").textContent = team;
       document.getElementById("selectedVersion").textContent =
         selectedVersion + " · " + selectedPrice + " €";
@@ -325,43 +285,15 @@
       const list = document.getElementById("shirtsList");
       list.innerHTML = "";
 
-      let models = modelos;
-
-      if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
-        models = camisetasLaLiga[team];
-      }
-
-      models.forEach(model => {
-        const card = document.createElement("div");
-        card.className = "card";
-
+      modelos.forEach(model => {
         const isMadridHomeFan =
           selectedLeague === "LaLiga" &&
           selectedVersion === "Fan Version" &&
           team === "Real Madrid" &&
           model === "Local";
 
-        if (isMadridHomeFan) {
-          const img = document.createElement("img");
-          img.src = "./images/madrid%20fan%201era.avif";
-          img.alt = "Camiseta local del Real Madrid, versión Fan";
-          img.className = "shirt-image";
-
-          img.onerror = function () {
-            this.remove();
-            const fallback = document.createElement("div");
-            fallback.className = "shirt";
-            fallback.textContent = "👕";
-            card.prepend(fallback);
-          };
-
-          card.appendChild(img);
-        } else {
-          const shirt = document.createElement("div");
-          shirt.className = "shirt";
-          shirt.textContent = "👕";
-          card.appendChild(shirt);
-        }
+        const card = document.createElement("div");
+        card.className = "card";
 
         const title = document.createElement("h3");
         title.textContent = team + " — " + model;
@@ -375,9 +307,42 @@
           ? "Primera equipación · Fan Version"
           : "Foto pendiente de añadir";
 
-        card.appendChild(title);
-        card.appendChild(price);
-        card.appendChild(note);
+        if (isMadridHomeFan) {
+          const link = document.createElement("a");
+          link.className = "shirt-card-link";
+          link.href = "https://www.instagram.com/bestshirts_goal/";
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.setAttribute("aria-label", "Abrir Instagram de Bestshirts.goal");
+
+          const img = document.createElement("img");
+          img.src = "./images/madrid%20fan%201era.avif";
+          img.alt = "Camiseta local del Real Madrid, versión Fan";
+          img.className = "shirt-image";
+
+          img.onerror = function () {
+            this.onerror = null;
+            this.src = "";
+            this.alt = "Foto no disponible";
+            this.style.display = "none";
+            const fallback = document.createElement("div");
+            fallback.className = "shirt";
+            fallback.textContent = "👕";
+            link.prepend(fallback);
+          };
+
+          link.appendChild(img);
+          link.appendChild(title);
+          link.appendChild(price);
+          link.appendChild(note);
+          card.appendChild(link);
+        } else {
+          const shirt = document.createElement("div");
+          shirt.className = "shirt";
+          shirt.textContent = "👕";
+          card.append(shirt, title, price, note);
+        }
+
         list.appendChild(card);
       });
 
