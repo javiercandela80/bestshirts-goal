@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bestshirts.goal</title>
+
   <style>
     * { box-sizing: border-box; }
 
@@ -74,6 +75,15 @@
       margin: 15px;
     }
 
+    .shirt-image {
+      display: block;
+      width: 100%;
+      max-width: 220px;
+      height: 220px;
+      object-fit: contain;
+      margin: 15px auto;
+    }
+
     .price {
       font-size: 22px;
       font-weight: bold;
@@ -94,9 +104,9 @@
   </header>
 
   <main class="container">
-
     <section id="home">
       <h2>Choose your version</h2>
+
       <div class="grid">
         <div class="card">
           <h3>Fan Version</h3>
@@ -125,7 +135,7 @@
     </section>
 
     <section id="teamsPage" class="hidden">
-      <button class="back" onclick="showPage('leaguesPage')">← Back to leagues</button>
+      <button class="back" onclick="showPage('leaguesPage)">← Back to leagues</button>
       <h2 id="leagueTitle">Choose a team</h2>
       <div id="teamsList" class="grid"></div>
     </section>
@@ -136,7 +146,6 @@
       <p id="selectedVersion"></p>
       <div id="shirtsList" class="grid"></div>
     </section>
-
   </main>
 
   <footer>
@@ -230,7 +239,9 @@
       document.querySelectorAll("main section").forEach(section => {
         section.classList.add("hidden");
       });
+
       document.getElementById(pageId).classList.remove("hidden");
+      window.scrollTo(0, 0);
     }
 
     function chooseVersion(version, price) {
@@ -246,12 +257,15 @@
       Object.keys(leagues).forEach(league => {
         const card = document.createElement("div");
         card.className = "card";
-        card.innerHTML = `<h3>${league}</h3>`;
+
+        const title = document.createElement("h3");
+        title.textContent = league;
 
         const button = document.createElement("button");
         button.textContent = "See teams";
         button.onclick = () => chooseLeague(league);
 
+        card.appendChild(title);
         card.appendChild(button);
         list.appendChild(card);
       });
@@ -261,6 +275,7 @@
 
     function chooseLeague(league) {
       selectedLeague = league;
+
       document.getElementById("leagueTitle").textContent = league;
 
       const list = document.getElementById("teamsList");
@@ -269,12 +284,15 @@
       leagues[league].forEach(team => {
         const card = document.createElement("div");
         card.className = "card";
-        card.innerHTML = `<h3>${team}</h3>`;
+
+        const title = document.createElement("h3");
+        title.textContent = team;
 
         const button = document.createElement("button");
         button.textContent = "See shirts";
         button.onclick = () => chooseTeam(team);
 
+        card.appendChild(title);
         card.appendChild(button);
         list.appendChild(card);
       });
@@ -283,78 +301,76 @@
     }
 
     function chooseTeam(team) {
-      
-function chooseTeam(team) {
-  selectedTeam = team;
+      selectedTeam = team;
 
-  document.getElementById("teamTitle").textContent = team;
-  document.getElementById("selectedVersion").textContent =
-    selectedVersion + " · " + selectedPrice + " €";
+      document.getElementById("teamTitle").textContent = team;
+      document.getElementById("selectedVersion").textContent =
+        selectedVersion + " · " + selectedPrice + " €";
 
-  const list = document.getElementById("shirtsList");
-  list.innerHTML = "";
+      const list = document.getElementById("shirtsList");
+      list.innerHTML = "";
 
-  let models = ["Local", "Visitante", "Tercera"];
+      let models = ["Local", "Visitante", "Tercera"];
 
-  if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
-    models = camisetasLaLiga[team];
-  }
+      if (selectedLeague === "LaLiga" && camisetasLaLiga[team]) {
+        models = camisetasLaLiga[team];
+      }
 
-  models.forEach(model => {
-    const card = document.createElement("div");
-    card.className = "card";
+      models.forEach(model => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-    if (
-      selectedVersion === "Fan Version" &&
-      team === "Real Madrid" &&
-      model === "Local"
-    ) {
-      const img = document.createElement("img");
-      img.src = "images/madrid%20fan%201era.avif";
-      img.alt = "Camiseta del Real Madrid";
-      img.style.width = "100%";
-      img.style.maxWidth = "220px";
-      img.style.height = "220px";
-      img.style.objectFit = "contain";
-      img.style.display = "block";
-      img.style.margin = "15px auto";
+        const isMadridFanHome =
+          selectedVersion === "Fan Version" &&
+          selectedLeague === "LaLiga" &&
+          team === "Real Madrid" &&
+          model === "Local";
 
-      card.appendChild(img);
-    } else {
-      const shirt = document.createElement("div");
-      shirt.className = "shirt";
-      shirt.textContent = "👕";
+        if (isMadridFanHome) {
+          const img = document.createElement("img");
+          img.className = "shirt-image";
+          img.src = "./images/madrid%20fan%201era.avif";
+          img.alt = "Camiseta del Real Madrid - Fan Version";
 
-      card.appendChild(shirt);
+          img.onerror = function () {
+            this.style.display = "none";
+            const fallback = document.createElement("div");
+            fallback.className = "shirt";
+            fallback.textContent = "👕";
+            this.parentElement.insertBefore(fallback, this);
+          };
+
+          card.appendChild(img);
+        } else {
+          const shirt = document.createElement("div");
+          shirt.className = "shirt";
+          shirt.textContent = "👕";
+          card.appendChild(shirt);
+        }
+
+        const title = document.createElement("h3");
+        title.textContent = team + " — " + model;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent = selectedPrice + " €";
+
+        const note = document.createElement("p");
+
+        if (isMadridFanHome) {
+          note.textContent = "Primera equipación · Fan Version";
+        } else {
+          note.textContent = "Foto pendiente de añadir";
+        }
+
+        card.appendChild(title);
+        card.appendChild(price);
+        card.appendChild(note);
+        list.appendChild(card);
+      });
+
+      showPage("shirtsPage");
     }
-
-    const title = document.createElement("h3");
-    title.textContent = team + " — " + model;
-
-    const price = document.createElement("p");
-    price.className = "price";
-    price.textContent = selectedPrice + " €";
-
-    const note = document.createElement("p");
-
-    if (
-      selectedVersion === "Fan Version" &&
-      team === "Real Madrid" &&
-      model === "Local"
-    ) {
-      note.textContent = "Primera equipación · Fan Version";
-    } else {
-      note.textContent = "Foto pendiente de añadir";
-    }
-
-    card.appendChild(title);
-    card.appendChild(price);
-    card.appendChild(note);
-    list.appendChild(card);
-  });
-
-  showPage("shirtsPage");
-}
   </script>
 </body>
 </html>
