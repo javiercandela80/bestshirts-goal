@@ -1,6 +1,7 @@
 Carpeta para las fotos de camisetas.
 real-madrid-local.jpg
-barcelona-local.jpg
-atletico-local.jpg
-valencia-local.jpg
-levante-local.jpg
+arsenal-local.jpg
+brighton-local.jpg
+brighton-visitante.jpg
+brighton-tercera.jpg
+man-united-local.jpg
