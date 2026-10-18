@@ -28,7 +28,7 @@
     .shirt { font-size: 65px; margin: 15px; }
     .shirt-image { width: 100%; max-width: 220px; height: 220px; object-fit: contain; display: block; margin: 15px auto; }
     .shirt-card-link { display: block; color: inherit; text-decoration: none; border-radius: 10px; }
-    .shirt-card-link:hover .card { border-color: #d62976; }
+    .shirt-card-link:hover { border-color: #d62976; }
     .price { font-size: 22px; font-weight: bold; }
     footer { padding: 25px; color: #aaa; font-size: 13px; }
   </style>
@@ -148,13 +148,16 @@
       "Manchester City|Local": "images/man-city-local.jpg",
       "Everton|Local": "images/everton-local.jpg",
       "FC Barcelona|Local": "images/barca-local.jpg",
-      "Sunderland|Local": "images/sunderland-local.jpg"
+      "Sunderland|Local": "images/sunderland-local.jpg",
+      "SL Benfica|Visitante": "images/benfica-visitante.jpg",
+      "FC Porto|Local": "images/porto-local.jpg",
+      "Sporting CP|Local": "images/sporting-local.jpg",
+      "Sporting CP|Visitante": "images/sporting-visitante.jpg"
     };
 
     const modelos = ["Local", "Visitante", "Tercera"];
     let selectedVersion = "";
     let selectedPrice = 0;
-    let selectedLeague = "";
 
     async function copyPhone() {
       const message = document.getElementById("copyMessage");
@@ -176,7 +179,6 @@
       selectedVersion = version;
       selectedPrice = price;
       document.getElementById("versionTitle").textContent = version + " — Choose a league";
-
       const list = document.getElementById("leaguesList");
       list.innerHTML = "";
 
@@ -191,12 +193,10 @@
         card.append(title, button);
         list.appendChild(card);
       });
-
       showPage("leaguesPage");
     }
 
     function chooseLeague(league) {
-      selectedLeague = league;
       document.getElementById("leagueTitle").textContent = league;
       const list = document.getElementById("teamsList");
       list.innerHTML = "";
@@ -212,14 +212,12 @@
         card.append(title, button);
         list.appendChild(card);
       });
-
       showPage("teamsPage");
     }
 
     function chooseTeam(team) {
       document.getElementById("teamTitle").textContent = team;
       document.getElementById("selectedVersion").textContent = selectedVersion + " · " + selectedPrice + " €";
-
       const list = document.getElementById("shirtsList");
       list.innerHTML = "";
 
@@ -268,7 +266,6 @@
         card.appendChild(link);
         list.appendChild(card);
       });
-
       showPage("shirtsPage");
     }
   </script>
